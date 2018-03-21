@@ -1,0 +1,7 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <form action="edit_teachers.html?nid={{ obj.id }}" method="post">
+        <input type="text" name="name" value="{{ obj.name }}">
+        <input type="submit">
+    </form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <div><a href="add_teachers.html">添加</a></div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in get_list %}
+                    <tr>
+                        <td>{{ row.name }}</td>
+                        <td>
+                            <a href="del_teachers.html?nid={{ row.id }}">删除</a>
+                            |
+                            <a href="edit_teachers.html?nid={{ row.id }}">修改</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

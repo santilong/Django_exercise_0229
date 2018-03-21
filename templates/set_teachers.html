@@ -1,0 +1,15 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <form action="set_teachers.html?nid={{ nid_get }}" method="POST">
+        <select name="teahcer_ids" multiple="multiple" size="10">
+            {% for row in teacher_list %}
+                {% if row.id in selected_teahcer_list %}
+                    <option value="{{ row.id }}" selected="selected">{{ row.name }}</option>
+                {% else %}
+                    <option value="{{ row.id }}">{{ row.name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <input type="submit" value="提交"/>
+    </form>
+{% endblock %}

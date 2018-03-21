@@ -1,0 +1,99 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <div class="addt" onclick="displayadd()">添加</div>
+    <div class="addajax hide">
+        <input type="text" id="teachername" name="addname">
+        <div onclick="addinfo()">提交</div>
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th style="display: none">ID</th>
+                    <th>NAME</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in get_list %}
+                    <tr>
+                        <td style="display: none" nid="editnid">{{ row.id }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>
+                            <div class="delt" id="{{ row.id }}">删除</div>
+                            |
+                            <div class="openedit" id="{{ row.id }}">修改</div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="editboard hide">
+        <input type="text" id="editiid" style="display: none">
+        <input type="text" name="name" id="editid">
+        <div class="editt">提交</div>
+    </div>
+    <script src="/static/jquery-3.3.1.min.js" ></script>
+    <script>
+        function displayadd() {
+            $('.addajax').toggleClass('hide')
+        }
+        function addinfo() {
+            $.ajax({
+                url:'/addteachersajax.html',
+                type:'POST',
+                data:{'addname':$('#teachername').val()},
+                success:function (arg) {
+                    console.log(arg);
+                    var obj = JSON.parse(arg);
+                    console.log(obj);
+                    if(obj.status) {
+                        window.location.reload();
+                    }else{
+                        alert(obj.error)
+                    }
+                }
+            })
+        }
+        $('.delt').on('click',function () {
+            var nid = $(this).attr('id');
+            $.ajax({
+                url:'teacher_del_ajax.html',
+                type: 'GET',
+                data:{'nid':nid},
+                success:function (arg) {
+                    if(arg == 'exists') {
+                        window.location.reload();
+                    }else{
+                        alert(arg)
+                    }
+                }
+            })
+        })
+        $('.openedit').on('click',function () {
+            $('.editboard').toggleClass('hide');
+            //var v = $(this).parent().siblings()[1].innerText
+            var v = $(this).parent().siblings().eq(1).text();
+            var iid = $(this).attr('id')
+            console.log(iid)
+            $('#editid').val(v);
+            $('#editiid').val(iid);
+        })
+        $('.editt').click(function () {
+            var nid = $(this).siblings().first().val()
+            $.ajax({
+                url:'/editeacherajax.html',
+                type:'POST',
+                data:{name:$('#editid').val(),nid:nid},
+                success:function (arg) {
+                    if(arg == 'succ') {
+                        window.location.reload();
+                    }else{
+                        alert(arg)
+                    }
+                }
+            })
+        })
+    </script>
+{% endblock %}

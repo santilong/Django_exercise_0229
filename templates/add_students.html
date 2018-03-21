@@ -1,0 +1,19 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <form method="post" action="add_students.html">
+        <p><input type="text" name="username" placeholder="姓名"></p>
+        <p><input type="text" name="age" placeholder="年龄"></p>
+        <p>
+            男 <input type="radio" value="1" name="gender">
+            女 <input type="radio" value="0" name="gender">
+        </p>
+        <p>
+            <select name="cs">
+                {% for row in classes_list %}
+                <option value="{{ row.id }}">{{ row.title }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}

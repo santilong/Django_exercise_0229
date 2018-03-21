@@ -1,0 +1,12 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <form action="add_classes.html" method="post">
+        <input type="text" name="title" placeholder="课程名"/>
+        <select name="teacher_ids" multiple size="10">
+            {% for obj in teacher_list %}
+            <option value="{{ obj.id }}">{{ obj.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="提交" />
+    </form>
+{% endblock %}

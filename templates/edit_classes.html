@@ -1,0 +1,8 @@
+{% extends 'master.html' %}
+{% block ooxx %}
+    <form method="post" action="/edit_classes.html?nid={{ obj.id }}">
+        {% csrf_token %}
+        <input type="text" name="ooxx" value="{{ obj.title }}">
+        <input type="submit" value="提交">
+    </form>
+{% endblock %}
